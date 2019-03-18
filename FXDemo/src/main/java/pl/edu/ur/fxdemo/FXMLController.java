@@ -156,10 +156,9 @@ public class FXMLController implements Initializable {
                 txtLastname.setText("");
                 txtName.setText("");
 
-                AlertUtil.showAlertInfo("Succes!", "New student added.", "Student "
-                        + name + " " + lastname + " added succesfully!");
+                AlertUtil.showAlertInfo("Succes!", "New student added.", "");
             } else {
-                AlertUtil.showAlertWarnion("Warning!", "Empty fields!", "Name or lastname field are empty now! Operation cannot be continued.");
+                AlertUtil.showAlertWarnion("Warning!", "Empty fields!", "");
             }
         } catch (SQLException e) {
             AlertUtil.showAlertError("Error!", "SQLException!", e.getMessage());
