@@ -152,6 +152,9 @@ public class FXMLController implements Initializable {
                 preparedStatement.setString(1, name);
                 preparedStatement.setString(2, lastname);
                 preparedStatement.execute();
+                
+                txtLastname.setText("");
+                txtName.setText("");
 
                 AlertUtil.showAlertInfo("Succes!", "New student added.", "Student "
                         + name + " " + lastname + " added succesfully!");
