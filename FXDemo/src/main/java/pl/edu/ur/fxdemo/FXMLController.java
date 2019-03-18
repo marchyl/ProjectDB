@@ -155,6 +155,7 @@ public class FXMLController implements Initializable {
                 
                 txtLastname.setText("");
                 txtName.setText("");
+                conn.close();
 
                 AlertUtil.showAlertInfo("Succes!", "New student added.", "");
             } else {
