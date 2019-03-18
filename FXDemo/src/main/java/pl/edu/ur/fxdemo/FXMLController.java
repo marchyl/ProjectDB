@@ -2,10 +2,9 @@ package pl.edu.ur.fxdemo;
 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +19,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import pl.edu.ur.fxdemo.database.DatabaseHelper;
 
@@ -43,11 +43,23 @@ public class FXMLController implements Initializable {
     @FXML
     private TableView<ObservableList> tableView;
 
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private Button btnCreate;
+
+    @FXML
+    private TextField txtName;
+
+    @FXML
+    private TextField txtLastname;
+
     DatabaseHelper dbHelper = new DatabaseHelper();
     private ObservableList data = FXCollections.observableArrayList();
 
     @FXML
-    void LoadStudentsData(ActionEvent event) throws SQLException {
+    void loadStudentsData(ActionEvent event) throws SQLException {
 
         Connection conn = dbHelper.getConnection();
         ResultSet rs = conn.prepareStatement("SELECT * FROM student").executeQuery();
@@ -111,12 +123,44 @@ public class FXMLController implements Initializable {
 
             }
 
-            System.out.println("Row [1] added " + row.toString());
+            //System.out.println("Row [1] added " + row.toString());
             data.add(row);
 
         }
 
         //FINALLY ADDED TO TableView
         tableView.setItems(data);
+    }
+
+    @FXML
+    void cancel(ActionEvent event) {
+        txtLastname.setText("");
+        txtName.setText("");
+    }
+
+    @FXML
+    void create(ActionEvent event) {
+        try {
+
+            String name = txtName.getText();
+            String lastname = txtLastname.getText();
+
+            if (!name.equals("") || !lastname.equals("")) {
+
+                Connection conn = dbHelper.getConnection();
+                PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO student (name, lastname) VALUES (?, ?)");
+                preparedStatement.setString(1, name);
+                preparedStatement.setString(2, lastname);
+                preparedStatement.execute();
+
+                AlertUtil.showAlertInfo("Succes!", "New student added.", "Student "
+                        + name + " " + lastname + " added succesfully!");
+            } else {
+                AlertUtil.showAlertWarnion("Warning!", "Empty fields!", "Name or lastname field are empty now! Operation cannot be continued.");
+            }
+        } catch (SQLException e) {
+            AlertUtil.showAlertError("Error!", "SQLException!", e.getMessage());
+        }
+
     }
 }
