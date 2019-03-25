@@ -22,7 +22,8 @@ public class DatabaseHelper {
         String url = "jdbc:postgresql://localhost/postgres";
         Properties props = new Properties();
         props.setProperty("user", "postgres");
-        props.setProperty("password", "postgres");
+        props.setProperty("password", "postres");
+        //props.setProperty("password", "student");
         props.setProperty("ssl", "true");
         return DriverManager.getConnection(url, props);
     }
