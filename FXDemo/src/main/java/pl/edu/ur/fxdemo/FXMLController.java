@@ -57,6 +57,41 @@ public class FXMLController implements Initializable {
 
     DatabaseHelper dbHelper = new DatabaseHelper();
     private ObservableList data = FXCollections.observableArrayList();
+    
+    
+    /**
+     * 
+     * Database function example
+     * @param event
+     * @throws SQLException 
+     */
+    @FXML
+    private void execDBFunction(ActionEvent event) throws SQLException {
+        Connection conn = dbHelper.getConnection();
+        //ResultSet rs = conn.prepareCall("SELECT test(1,1,2)").executeQuery();
+        ResultSet rs = conn.prepareStatement("SELECT test(1,1,2)").executeQuery();
+        loadData(rs);
+        conn.close();
+        
+        
+    }
+    
+    /*
+CREATE OR REPLACE FUNCTION test(person_id_1 NUMERIC, person_id_2 NUMERIC, place_id NUMERIC) 
+ RETURNS NUMERIC AS $$
+ DECLARE max_id NUMERIC;
+BEGIN
+	INSERT INTO dates 
+        VALUES (NEXTVAL('studseq'), person_id_1, person_id_2, 1);
+
+	SELECT max(id) 
+          INTO max_id 
+          FROM dates;
+
+	RETURN max_id;
+END;
+$$ LANGUAGE plpgsql;
+     */
 
     @FXML
     void loadStudentsData(ActionEvent event) throws SQLException {

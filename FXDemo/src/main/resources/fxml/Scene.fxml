@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.ur.fxdemo.FXMLController">
    <center>
       <TabPane>
@@ -33,6 +32,7 @@
                                       <Button fx:id="loadButton" layoutX="14.0" layoutY="14.0" onAction="#loadStudentsData" prefHeight="25.0" prefWidth="75.0" text="Load" />
                                     <Button fx:id="cleanButton" layoutX="14.0" layoutY="46.0" mnemonicParsing="false" onAction="#cleanStudentsData" prefHeight="25.0" prefWidth="75.0" text="Clean" />
                                     <Button fx:id="executeButton" layoutX="14.0" layoutY="79.0" mnemonicParsing="false" onAction="#executeQuery" prefHeight="25.0" prefWidth="75.0" text="Execute" />
+                                    <Button fx:id="executeFunction" layoutX="14.0" layoutY="113.0" mnemonicParsing="false" onAction="#execDBFunction" text="Function" />
                                  </children>
                               </AnchorPane>
                            </left>
